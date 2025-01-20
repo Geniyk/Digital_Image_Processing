@@ -1,6 +1,6 @@
 # Digital_Image_Processing
 
-##---------RGB2Gray--------##
+#  RGB2Gray
 This project demonstrates image processing in MATLAB by extracting and visualizing individual color channels (Red, Green, Blue) and converting images to grayscale. The script reads an input image, isolates specific color channels by manipulating pixel values, and displays the results for analysis. It also showcases grayscale conversion using the rgb2gray function.
 
 Features
@@ -11,7 +11,7 @@ Place an image file (e.g., car.jpg) in the script's directory, run it in MATLAB,
 
 
 
-###------Histogram Equalization------######
+
 # Image Histogram Equalization Analysis
 
 This repository contains MATLAB scripts for performing and visualizing histogram equalization on grayscale images to enhance contrast. Two methods are implemented:
