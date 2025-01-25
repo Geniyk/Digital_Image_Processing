@@ -10,8 +10,6 @@ Usage
 Place an image file (e.g., car.jpg) in the script's directory, run it in MATLAB, and view the output visualizations.
 
 
-
-
 # Image Histogram Equalization Analysis
 
 This repository contains MATLAB scripts for performing and visualizing histogram equalization on grayscale images to enhance contrast. Two methods are implemented:
@@ -21,13 +19,14 @@ This repository contains MATLAB scripts for performing and visualizing histogram
 
 Both methods include comprehensive visualizations that compare the original and equalized images, histograms, and CDFs, arranged in a 2x3 subplot format. These visualizations help illustrate the impact of histogram equalization on image contrast.
 
-### Usage:
-1. Clone the repository and replace the placeholder image with your own.
-2. Run the respective scripts:
-   - `manual_histogram_equalization.m`
-   - `builtin_histogram_equalization.m`
 
-### Requirements:
-- MATLAB R2021a or later
+# Bit Plane Slicing 
 
-This repository is ideal for understanding histogram equalization concepts and exploring contrast enhancement techniques.
+This MATLAB project demonstrates **Bit Plane Slicing**, a technique used to analyze and visualize the contribution of each bit in a grayscale image's pixel intensity. The script processes an input image and extracts its 8-bit planes, from the Least Significant Bit (LSB) to the Most Significant Bit (MSB).
+
+#### Features:
+1. **Image Conversion**: Converts a color image to grayscale using `rgb2gray`.
+2. **Bit Plane Extraction**: Utilizes `bitget` to isolate individual bit planes.
+3. **Visualization**: Displays each bit plane as an image for better understanding.
+4. **Customizable Input**: Replace the path in `imread` with your image path.
+
