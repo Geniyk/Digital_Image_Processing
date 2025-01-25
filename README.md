@@ -30,3 +30,16 @@ This MATLAB project demonstrates **Bit Plane Slicing**, a technique used to anal
 3. **Visualization**: Displays each bit plane as an image for better understanding.
 4. **Customizable Input**: Replace the path in `imread` with your image path.
 
+## Decimal_2_Binary
+
+This repository contains two MATLAB implementations for converting decimal numbers to binary without using inbuilt functions like `dec2bin`.
+
+### **1. From Scratch**
+
+This approach demonstrates the binary conversion process step-by-step using modulo and division operations. It handles cases like `0` and supports optional padding for fixed bit-lengths, offering an educational tool for understanding binary number systems.
+
+### **2. Using a Function**
+
+This modular function performs the same conversion, encapsulating the logic for reuse in larger projects. It handles edge cases, supports bit-length padding, and ensures clean integration into other MATLAB applications.
+
+Both methods are ideal for learning binary conversion or integrating into custom workflows.
