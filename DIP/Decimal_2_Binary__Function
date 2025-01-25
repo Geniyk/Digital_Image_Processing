@@ -1,0 +1,14 @@
+clc;
+clear all;
+close all;
+
+decn=10;
+ binstr = dec2bin(decn,8)
+ bin_array = arrayfun (@(x) str2double(x),binstr);
+
+ bin_len=length(bin_array);
+
+ disp('Binary representation as an array:');
+disp(bin_array);
+
+disp(bin_len);
