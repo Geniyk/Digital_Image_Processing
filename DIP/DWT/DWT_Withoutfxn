@@ -1,0 +1,85 @@
+clear all;
+close all;
+clc;
+
+% Read the original image from a URL or local directory
+img = imread('/MATLAB Drive/Saurabh_pic.jpg');
+
+% Convert to grayscale if it's a color image
+if size(img,3) == 3
+    img = rgb2gray(img);
+end
+
+% Initialize an empty watermark image of the same size as the original
+watermark = zeros(size(img));
+
+% Display the empty watermark image and overlay text onto it
+figure;
+imshow(watermark, []);
+hold on;
+text(size(img,2)/2, size(img,1)/2, 'OM', 'FontSize', 50, 'Color', 'white', 'FontWeight', 'bold', 'HorizontalAlignment', 'center');
+
+% Capture the frame containing the text
+frame = getframe(gca);
+watermark = frame2im(frame);
+
+% Convert to grayscale (if needed) and resize to match half the original image size
+watermark = rgb2gray(watermark);
+watermark = imresize(watermark, size(img) / 2);
+watermark = double(watermark); % Ensure it's double for arithmetic operations
+close;
+
+% -------------------- Manual DWT Approximation --------------------
+
+% Apply a simple approximation of Haar wavelet decomposition
+LL = imresize(img, 0.5); % Approximate Low-Low subband
+HH = imresize(img, 0.5, 'bilinear'); % Approximate High-High subband
+
+% Convert HH to double for computation
+HH = double(HH);
+
+% Define watermark strength
+alpha = 0.1;
+
+% Embed watermark into HH (high-frequency) subband
+HH_watermarked = HH + alpha * watermark;
+
+% Convert back to uint8 after processing
+HH_watermarked = uint8(HH_watermarked);
+
+% Perform inverse operation (approximate IDWT)
+img_watermarked = imresize(LL, 2) + imresize(HH_watermarked, 2, 'bilinear');
+img_watermarked = uint8(img_watermarked);
+
+% Save and display the watermarked image
+imwrite(img_watermarked, 'text_watermarked_image.png');
+figure;
+subplot(1,3,1); imshow(img); title('Original Image');
+subplot(1,3,2); imshow(img_watermarked); title('Watermarked Image');
+subplot(1,3,3); imshow(watermark, []); title('Text Watermark');
+
+% -------------------- Watermark Removal Process --------------------
+
+% Reapply the manual transformation to extract HH subband
+LL2 = imresize(img_watermarked, 0.5);
+HH2 = imresize(img_watermarked, 0.5, 'bilinear');
+
+% Convert HH2 to double for computation
+HH2 = double(HH2);
+
+% Remove watermark from HH subband
+HH2_cleaned = HH2 - alpha * watermark;
+
+% Convert back to uint8 after processing
+HH2_cleaned = uint8(HH2_cleaned);
+
+% Reconstruct the cleaned image (without watermark)
+img_cleaned = imresize(LL2, 2) + imresize(HH2_cleaned, 2, 'bilinear');
+img_cleaned = uint8(img_cleaned);
+
+% Save and display the watermark-removed image
+imwrite(img_cleaned, 'text_watermark_removed.png');
+figure;
+subplot(1,3,1); imshow(img_watermarked); title('Watermarked Image');
+subplot(1,3,2); imshow(HH2_cleaned, []); title('HH after Removal');
+subplot(1,3,3); imshow(img_cleaned); title('Watermark Removed');
